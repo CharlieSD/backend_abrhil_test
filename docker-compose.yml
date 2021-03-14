@@ -2,13 +2,19 @@ version: "3.7"
 
 services:
   backend:
-    build: .
+    build: app
+    environment: 
+      DATABASE: postgres
+      SQL_HOST: db
+      SQL_PORT: 5432
     depends_on:
-      - postgres
+      - db
     ports: 
       - 80:8080
 
-  postgres:
+  db:
     build: postgres
     environment: 
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: password-1234
+    ports: 
+      - 5432:5432
