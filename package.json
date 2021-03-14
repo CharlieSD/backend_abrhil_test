@@ -1,0 +1,16 @@
+{
+    "name": "abrhil-frontend-container",
+    "version": "1.0.0",
+    "description": "Abrhil Frontend Container",
+    "author": "Carlos Espinoza <carlos.alb.esp.diy@gmail.com>",
+    "license": "MIT",
+    "main": "app.js",
+    "keywords": [
+      "nodejs",
+      "bootstrap",
+      "express"
+    ],
+    "dependencies": {
+      "express": "^4.16.4"
+    }
+  }
