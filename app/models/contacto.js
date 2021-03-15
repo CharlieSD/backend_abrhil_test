@@ -48,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
     email: { 
         type: DataTypes.STRING,
         allowNull: false,
+        unique: { 
+          args:true,
+          msg: 'Un contacto ya cuenta con este correo' 
+        },
         validate: {
           notNull: { msg: "El usuario debe tener un email "},
           notEmpty: { msg: "El email no puede estar vacio "},
