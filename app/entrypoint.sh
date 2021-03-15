@@ -12,5 +12,6 @@ then
 fi
 
 sequelize db:create
+sequelize db:migrate
 
 exec "$@"

@@ -6,6 +6,7 @@ COPY package.json .
 RUN npm install
 COPY . .
 RUN npm i -g sequelize-cli
+RUN npm i -g nodemon
 EXPOSE 8080
 ENTRYPOINT ["/home/node/app/entrypoint.sh"]
-CMD ["node", "app.js"]
+CMD ["nodemon", "app.js"]

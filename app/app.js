@@ -23,8 +23,34 @@ app.post('/contactos', async(req, res) => {
   }
 });
 
+app.get('/contactos', async(req, res) => {
+  try{
+    const contactos = await contacto.findAll()
+    return res.json(contactos)
+  }catch(err){
+    console.log(err)
+    return res.status(500).json("Error al obtener a los usuarios")
+  }
+});
+
+app.get('/contactos/:uuid', async(req, res) => {
+  const uuid = req.params.uuid
+  try{
+    const contactos = await contacto.findOne({
+      where : { uuid }
+    })
+    return res.json(contactos)
+  }catch(err){
+    console.log(err)
+    return res.status(500).json("Error al obtener a los usuarios")
+  }
+});
+
+
 app.listen( PORT, HOST, async() => {
   console.log(`Running on http://${HOST}:${PORT}`);
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ });
   console.log(`Base de datos sincronizada`);
+  await sequelize.authenticate();
+  console.log(`Conexion con Base de datos`);
 });
