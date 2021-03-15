@@ -46,6 +46,29 @@ app.get('/contactos/:uuid', async(req, res) => {
   }
 });
 
+app.put('/contactos/:uuid', async(req, res) => {
+  const uuid = req.params.uuid
+  const { first_name, last_name, phone, email, photo } = req.body
+  try{
+    const updated_contacto = await contacto.findOne({
+      where : { uuid }
+    })
+
+    updated_contacto.first_name = first_name
+    updated_contacto.last_name = last_name
+    updated_contacto.phone = phone
+    updated_contacto.email = email
+    updated_contacto.photo = photo
+
+    await updated_contacto.save()
+
+    return res.json(updated_contacto)
+  }catch(err){
+    console.log(err)
+    return res.status(500).json("Error al actualizar al usuario")
+  }
+});
+
 app.delete('/contactos/:uuid', async(req, res) => {
   const uuid = req.params.uuid
   try{
