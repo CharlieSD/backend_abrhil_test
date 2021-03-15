@@ -36,16 +36,30 @@ app.get('/contactos', async(req, res) => {
 app.get('/contactos/:uuid', async(req, res) => {
   const uuid = req.params.uuid
   try{
-    const contactos = await contacto.findOne({
+    const contacto = await contacto.findOne({
       where : { uuid }
     })
     return res.json(contactos)
   }catch(err){
     console.log(err)
-    return res.status(500).json("Error al obtener a los usuarios")
+    return res.status(500).json("Error al obtener al usuario")
   }
 });
 
+app.delete('/contactos/:uuid', async(req, res) => {
+  const uuid = req.params.uuid
+  try{
+    const delete_contacto = await contacto.findOne({
+      where : { uuid }
+    })
+
+    await delete_contacto.destroy()
+    return res.json({msg: "Usuario eliminado"})
+  }catch(err){
+    console.log(err)
+    return res.status(500).json("Error al eliminar al usuario")
+  }
+});
 
 app.listen( PORT, HOST, async() => {
   console.log(`Running on http://${HOST}:${PORT}`);
