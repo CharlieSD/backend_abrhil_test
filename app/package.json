@@ -1,0 +1,22 @@
+{
+    "name": "abrhil-frontend-container",
+    "version": "1.0.0",
+    "description": "Abrhil Frontend Container",
+    "author": "Carlos Espinoza <carlos.alb.esp.diy@gmail.com>",
+    "license": "MIT",
+    "main": "app.js",
+    "keywords": [
+      "nodejs",
+      "bootstrap",
+      "express"
+    ],
+    "dependencies": {
+      "express": "^4.16.4",
+      "sequelize": "^6.5.0",
+      "sequelize-cli": "^6.2.0",
+      "pg": "^8.5.1",
+      "pg-hstore": "^2.3.3",
+      "jsonwebtoken":"^8.5.1",
+      "cors": "^2.8.5"
+    }
+  }
