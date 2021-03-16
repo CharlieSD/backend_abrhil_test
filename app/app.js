@@ -6,6 +6,8 @@ const HOST = '0.0.0.0';
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
+
 const jwt = require('jsonwebtoken');
 const token = require('./config/token');
 const { sequelize, contacto } = require('./models');
@@ -13,9 +15,17 @@ const { sequelize, contacto } = require('./models');
 // App
 const app = express();
 app.use(express.json());
+app.use(cors())
+app.options('*', cors())
 app.set('key', token.key);
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Allow', 'GET, POST, PUT, DELETE');
+
+  next();
+});
 
 const authTokenAccess = express.Router(); 
 authTokenAccess.use((req, res, next) => {
@@ -36,6 +46,7 @@ authTokenAccess.use((req, res, next) => {
  });
 
 app.post('/autenticar', (req, res) => {
+  console.log(req.body)
   if(req.body.usuario === "AbrhilUser" && req.body.contrasena === "AbrhilPass") {
     const payload = {
       check:  true

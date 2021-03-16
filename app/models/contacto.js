@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: { 
-          args:true,
+          args: true,
           msg: 'Un contacto ya cuenta con este correo' 
         },
         validate: {
