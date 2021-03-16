@@ -19,3 +19,10 @@ Se cuenta con 2 servicios: **backend** y **db**. Al ejecutar le programa se habi
 - **Backend** contenedor diseñado para servicios en Node.JS, se ejecuta en la espera de peticiones en el puerto :8000 del host.
 - **Db** contenedor diseñado para la ejecución del motor de base de datos PostgreSQL.
 
+## Goals
+
+1. Se crea repositorio de backend, contiene servicio de Node y Base de datos en Postgres.
+2. Contiene 2 manereas de generar la Base de datos Contactos: por medio de script _CreateDB.sql_, o por medio de ORM de Node.
+3. Se crea CRUD de contactos con _Express, Sequelize y Node_, se cresa middleware de autenticación por token.
+
+
