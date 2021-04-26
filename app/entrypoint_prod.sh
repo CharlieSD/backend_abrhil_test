@@ -11,7 +11,4 @@ then
     echo "PostgreSQL started"
 fi
 
-sequelize db:create
-sequelize db:migrate
-
 exec "$@"
