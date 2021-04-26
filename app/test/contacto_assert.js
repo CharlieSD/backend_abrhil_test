@@ -10,39 +10,6 @@ const url = 'http://0.0.0.0:8080';
 var agent = chai.request.agent(url)
 
 describe('Contacto CRUD: ', () => {
-	describe("GET contacto list: ", function () {
-		it('should receive an OK and get a list of contactos', (done) => {
-			agent
-				.post('/autenticar')
-				.send(
-					{
-						"usuario": 'AbrhilUser',
-						"contrasena": 'AbrhilPass'
-					})
-				.end(function (err, res) {
-					expect(res.body).to.have.property('token');
-					return agent
-						.get('/api/contactos')
-						.set('access-token', res.body.token)
-						.end(function (err, res) {
-							expect(res).to.have.status(200);
-							expect(res.body).to.be.a('array');
-							done();
-						});
-				});
-		});
-
-		it('should receive an ERROR and denied the contacto list access', (done) => {
-			agent
-				.get('/api/contactos')
-				.set('access-token', "Invalidate Token")
-				.end(function (err, res) {
-					expect(res.body).to.have.property('mensaje');
-					expect(res).to.have.status(401);
-					done();
-				});
-		});
-	});
 
 	describe("POST new contacto to list: ", function () {
 		it('send a new contacto and should receive an OK and get the property uuid & createdAt', (done) => {
@@ -120,6 +87,40 @@ describe('Contacto CRUD: ', () => {
 						photo: "Hola"
 					}
 				)
+				.end(function (err, res) {
+					expect(res.body).to.have.property('mensaje');
+					expect(res).to.have.status(401);
+					done();
+				});
+		});
+	});
+
+	describe("GET contacto list: ", function () {
+		it('should receive an OK and get a list of contactos', (done) => {
+			agent
+				.post('/autenticar')
+				.send(
+					{
+						"usuario": 'AbrhilUser',
+						"contrasena": 'AbrhilPass'
+					})
+				.end(function (err, res) {
+					expect(res.body).to.have.property('token');
+					return agent
+						.get('/api/contactos')
+						.set('access-token', res.body.token)
+						.end(function (err, res) {
+							expect(res).to.have.status(200);
+							expect(res.body).to.be.a('array');
+							done();
+						});
+				});
+		});
+
+		it('should receive an ERROR and denied the contacto list access', (done) => {
+			agent
+				.get('/api/contactos')
+				.set('access-token', "Invalidate Token")
 				.end(function (err, res) {
 					expect(res.body).to.have.property('mensaje');
 					expect(res).to.have.status(401);
