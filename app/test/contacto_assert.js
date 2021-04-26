@@ -145,7 +145,6 @@ describe('Contacto CRUD: ', () => {
 						.end(function (err, res2) {
 							expect(res2).to.have.status(200);
 							expect(res2.body).to.be.a('array');
-							console.log(res2.body[0].uuid);
 							return agent
 								.put('/api/contactos/' + res2.body[0].uuid)
 								.set('access-token', res.body.token)
@@ -217,6 +216,67 @@ describe('Contacto CRUD: ', () => {
 				});
 		});
 
+	});
+
+	describe("DELETE contacto: ", function () {
+		it('delete an extinting contacto and should receive an OK', (done) => {
+			agent
+				.post('/autenticar')
+				.send(
+					{
+						"usuario": 'AbrhilUser',
+						"contrasena": 'AbrhilPass'
+					})
+				.end(function (err, res) {
+					expect(res.body).to.have.property('token');
+					agent
+						.get('/api/contactos')
+						.set('access-token', res.body.token)
+						.end(function (err, res2) {
+							expect(res2).to.have.status(200);
+							expect(res2.body).to.be.a('array');
+							return agent
+								.delete('/api/contactos/' + res2.body[0].uuid)
+								.set('access-token', res.body.token)
+								.end(function (err, res) {
+									expect(res).to.have.status(200);
+									expect(res.body).to.have.property('msg');
+									done();
+								});
+						});
+				});
+		});
+
+		it('delete a wrong contacto and should receive an ERROR and get error message', (done) => {
+			agent
+				.post('/autenticar')
+				.send(
+					{
+						"usuario": 'AbrhilUser',
+						"contrasena": 'AbrhilPass'
+					})
+				.end(function (err, res) {
+					return agent
+						.delete('/api/contactos/' + "406317db-f420-494f-b133-ffffffffffff")
+						.set('access-token', res.body.token)
+						.end(function (err, res) {
+							expect(res).to.have.status(500);
+							done();
+						});
+
+				});
+		});
+
+		it('should receive an ERROR and denied the contacto access', (done) => {
+			agent
+				.delete('/api/contactos/406317db-f420-494f-b133-ffffffffffff')
+				.set('access-token', "Invalidate Token")
+				.end(function (err, res) {
+					expect(res.body).to.have.property('mensaje');
+					expect(res).to.have.status(401);
+					done();
+				});
+		});
 
 	});
 });
