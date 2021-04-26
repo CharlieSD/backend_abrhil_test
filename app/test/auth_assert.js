@@ -20,7 +20,6 @@ describe('Authenticate a user: ', () => {
 						"contrasena": 'AbrhilPass'
 					})
 				.end(function (err, res) {
-					console.log(res.body)
 					expect(res.body).to.have.property('token');
 					expect(res).to.have.status(200);
 					done();
@@ -36,7 +35,6 @@ describe('Authenticate a user: ', () => {
 						"contrasena": 'wrongPass'
 					})
 				.end(function (err, res) {
-					console.log(res.body)
 					expect(res.body).to.have.property('mensaje');
 					expect(res).to.have.status(403);
 					done();
