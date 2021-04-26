@@ -31,7 +31,7 @@ const authTokenAccess = express.Router();
 authTokenAccess.use((req, res, next) => {
     const token = req.headers['access-token'];
  
-    if (token) {
+    /*if (token) {
         jwt.verify(token, app.get('key'), (err, decoded) => {      
             if (err) {
                 return res.status(401).json({ mensaje: 'Token incorrecto' });    
@@ -42,7 +42,8 @@ authTokenAccess.use((req, res, next) => {
         });
     } else {
         return res.status(401).json({ mensaje: 'No se encuentra token de acceso.' });
-    }
+    }*/
+    next();
  });
 
 app.post('/autenticar', (req, res) => {

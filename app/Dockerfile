@@ -8,5 +8,6 @@ COPY . .
 RUN npm i -g sequelize-cli
 RUN npm i -g nodemon
 EXPOSE 8080
+RUN chmod +x /home/node/app/entrypoint.sh
 ENTRYPOINT ["/home/node/app/entrypoint.sh"]
 CMD ["nodemon", "app.js"]
