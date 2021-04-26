@@ -129,7 +129,7 @@ describe('Contacto CRUD: ', () => {
 	});
 
 	describe("PUT new info to contacto: ", function () {
-		it('send a new contacto and should receive an OK and get the property uuid & createdAt', (done) => {
+		it('send an update to an extinting contacto and should receive an OK and get the property uuid & updatedAt', (done) => {
 			agent
 				.post('/autenticar')
 				.send(
@@ -139,28 +139,36 @@ describe('Contacto CRUD: ', () => {
 					})
 				.end(function (err, res) {
 					expect(res.body).to.have.property('token');
-					return agent
-						.post('/api/contactos')
+					agent
+						.get('/api/contactos')
 						.set('access-token', res.body.token)
-						.send(
-							{
-								first_name: "Carlos Alberto",
-								last_name: "Espinoza Diyarza",
-								phone: "2222222222",
-								email: "carloN@correoN.com",
-								photo: "Hola"
-							}
-						)
-						.end(function (err, res) {
-							expect(res).to.have.status(201);
-							expect(res.body).to.have.property('uuid');
-							expect(res.body).to.have.property('createdAt');
-							done();
+						.end(function (err, res2) {
+							expect(res2).to.have.status(200);
+							expect(res2.body).to.be.a('array');
+							console.log(res2.body[0].uuid);
+							return agent
+								.put('/api/contactos/' + res2.body[0].uuid)
+								.set('access-token', res.body.token)
+								.send(
+									{
+										first_name: "Carlos Alberto",
+										last_name: "Espinoza Diyarza",
+										phone: "2222222222",
+										email: "carlosUpdated@correo.com",
+										photo: "Imagen Actualizada"
+									}
+								)
+								.end(function (err, res) {
+									expect(res).to.have.status(201);
+									expect(res.body).to.have.property('uuid');
+									expect(res.body).to.have.property('updatedAt');
+									done();
+								});
 						});
 				});
 		});
 
-		it('send a existing contacto and should receive an ERROR and get error message', (done) => {
+		it('send update info to a inexisting contacto and should receive an ERROR and get error message', (done) => {
 			agent
 				.post('/autenticar')
 				.send(
@@ -169,31 +177,29 @@ describe('Contacto CRUD: ', () => {
 						"contrasena": 'AbrhilPass'
 					})
 				.end(function (err, res) {
-					expect(res.body).to.have.property('token');
 					return agent
-						.post('/api/contactos')
+						.put('/api/contactos/' + "406317db-f420-494f-b133-ffffffffffff")
 						.set('access-token', res.body.token)
 						.send(
 							{
-								first_name: "Carlos Alberto",
+								first_name: "Carlos",
 								last_name: "Espinoza Diyarza",
 								phone: "2222222222",
-								email: "carloN@correoN.com",
-								photo: "Hola"
+								email: "carlosNull@correo.com",
+								photo: "Imagen"
 							}
 						)
 						.end(function (err, res) {
 							expect(res).to.have.status(500);
-							expect(res.body).to.have.property('errors');
-							expect(res.body).to.have.property('fields');
 							done();
 						});
+
 				});
 		});
 
 		it('should receive an ERROR and denied the contacto access', (done) => {
 			agent
-				.post('/api/contactos')
+				.put('/api/contactos/406317db-f420-494f-b133-ffffffffffff')
 				.set('access-token', "Invalidate Token")
 				.send(
 					{
@@ -210,5 +216,7 @@ describe('Contacto CRUD: ', () => {
 					done();
 				});
 		});
+
+
 	});
 });
