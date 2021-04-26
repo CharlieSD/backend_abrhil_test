@@ -3,10 +3,8 @@ version: "3.7"
 services:
   backend:
     build: app
-    environment: 
-      DATABASE: postgres
-      SQL_HOST: db
-      SQL_PORT: 5432
+    env_file:
+      - .env.backend.dev
     depends_on:
       - db
     volumes:
@@ -16,8 +14,8 @@ services:
 
   db:
     build: postgres
-    environment: 
-      POSTGRES_PASSWORD: password-1234
+    env_file:
+      - .env.db.dev
     volumes: 
       - pg_data:/var/lib/postgresql/data/
     ports: 

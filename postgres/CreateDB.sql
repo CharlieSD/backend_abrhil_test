@@ -1,13 +1,17 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE DATABASE contactos;
 
 \c contactos;
 
-CREATE TABLE contacto(
+CREATE TABLE contacto (
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    phone VARCHAR(50) NOT NULL,
-    email VARCHAR(80) NOT NULL UNIQUE,
-    photo  VARCHAR(80) NOT NULL,
-    created_on TIMESTAMP NOT NULL DEFAULT NOW()
+    uuid uuid,
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    phone character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    photo character varying(255),
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
 );

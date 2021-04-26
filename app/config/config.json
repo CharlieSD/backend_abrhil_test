@@ -14,8 +14,8 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "postgres",
-    "password": "password-1234",
+    "username": "AbrhilUser",
+    "password": "caIcOihj0cu5",
     "database": "contactos",
     "host": "db",
     "dialect": "postgres"

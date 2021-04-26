@@ -46,7 +46,6 @@ authTokenAccess.use((req, res, next) => {
 });
 
 app.post('/autenticar', (req, res) => {
-	console.log(req.body)
 	if (req.body.usuario === "AbrhilUser" && req.body.contrasena === "AbrhilPass") {
 		const payload = {
 			check: true
