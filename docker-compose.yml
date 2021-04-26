@@ -3,6 +3,7 @@ version: "3.7"
 services:
   backend:
     build: app
+    command: nodemon app.js
     env_file:
       - .env.backend.dev
     depends_on:
@@ -16,9 +17,9 @@ services:
     build: postgres
     env_file:
       - .env.db.dev
-    volumes: 
+    volumes:
       - pg_data:/var/lib/postgresql/data/
-    ports: 
+    ports:
       - 5432:5432
 
 volumes:
