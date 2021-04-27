@@ -7,6 +7,7 @@ RUN npm i -g sequelize-cli
 RUN npm i -g nodemon
 COPY package.json .
 RUN npm install
+RUN echo $NODE_PATH∫
 EXPOSE 8080
 COPY . .
 RUN chmod 777 /home/node/app/entrypoint.sh
