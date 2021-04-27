@@ -24,7 +24,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./app
-        run: docker-compose exec -T backend npm test
+        run: npm test
 
       - name: Stop containers
         if: always()
