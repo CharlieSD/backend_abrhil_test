@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http");
 const expect = chai.expect;
 
 chai.use(chaiHttp);
-const url = 'http://localhost';
+const url = process.env.URL_TESTING || 'http://localhost';
 
 var agent = chai.request.agent(url)
 
