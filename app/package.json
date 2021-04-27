@@ -31,6 +31,6 @@
  },
  "scripts": {
   "start": "node .",
-  "test": "./node_modules/.bin/mocha --reporter spec"
+  "test": "mocha --reporter spec"
  }
 }
