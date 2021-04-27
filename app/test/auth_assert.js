@@ -1,8 +1,8 @@
 "use strict"
 
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-const expect = require('chai').expect;
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const expect = chai.expect;
 
 chai.use(chaiHttp);
 const url = 'http://0.0.0.0:8080';
