@@ -1,11 +1,11 @@
 "use strict"
 
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-const expect = require('chai').expect;
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const expect = chai.expect;
 
 chai.use(chaiHttp);
-const url = 'http://0.0.0.0:8080';
+const url = process.env.URL_TESTING || 'http://localhost';
 
 var agent = chai.request.agent(url)
 

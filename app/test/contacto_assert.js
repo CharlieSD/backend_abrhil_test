@@ -1,11 +1,11 @@
 "use strict"
 
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-const expect = require('chai').expect;
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const expect = chai.expect;
 
 chai.use(chaiHttp);
-const url = 'http://0.0.0.0:8080';
+const url = process.env.URL_TESTING || 'http://localhost';
 
 var agent = chai.request.agent(url)
 
@@ -66,6 +66,7 @@ describe('Contacto CRUD: ', () => {
 							}
 						)
 						.end(function (err, res) {
+							console.log(res.body)
 							expect(res).to.have.status(500);
 							expect(res.body).to.have.property('errors');
 							expect(res.body).to.have.property('fields');
