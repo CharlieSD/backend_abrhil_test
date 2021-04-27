@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http");
 const expect = chai.expect;
 
 chai.use(chaiHttp);
-const url = 'http://localhost:8000';
+const url = 'http://localhost';
 
 var agent = chai.request.agent(url)
 
@@ -66,6 +66,7 @@ describe('Contacto CRUD: ', () => {
 							}
 						)
 						.end(function (err, res) {
+							console.log(res.body)
 							expect(res).to.have.status(500);
 							expect(res.body).to.have.property('errors');
 							expect(res.body).to.have.property('fields');
