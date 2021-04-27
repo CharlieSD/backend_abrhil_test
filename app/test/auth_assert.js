@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http");
 const expect = chai.expect;
 
 chai.use(chaiHttp);
-const url = 'http://0.0.0.0:8080';
+const url = 'http://0.0.0.0:8000';
 
 var agent = chai.request.agent(url)
 
@@ -20,6 +20,7 @@ describe('Authenticate a user: ', () => {
 						"contrasena": 'AbrhilPass'
 					})
 				.end(function (err, res) {
+					console.log(res)
 					expect(res.body).to.have.property('token');
 					expect(res).to.have.status(200);
 					done();
