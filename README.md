@@ -29,8 +29,8 @@ que ejecuta cada uno de los servicios:
 1. Se crea repositorio de backend, contiene servicio de Node y Base de datos en Postgres.
 1. Contiene 2 manereas de generar la Base de datos Contactos: por medio de script _CreateDB.sql_, o por medio de ORM de
    Node.
-1. Se crea CRUD de contactos con _Express, Sequelize y Node_, se cresa middleware de autenticación por token.
-1. Se crean 2 entornos: Desasrrollo y producción.
+1. Se crea CRUD de contactos con _Express, Sequelize y Node_, se crea middleware de autenticación por token.
+1. Se crean 2 entornos: Desarrollo y Producción.
 1. Se crean las pruebas unitarias por cada endpoint.
 1. Se genera integración continua por medio de Github Actions.
 
