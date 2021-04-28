@@ -1,0 +1,206 @@
+FORMAT: 1A
+HOST: https://0.0.0.0:8000
+
+# Abrhilsoft Test
+
+Contactos en un API que permite al usuario administrar el registro de contactos. 
+Para acceder a cada petición es necesario contar con un token de acceso.
+
+## Autenticar usuario [/autenticar]
+
+### Autenticar [POST]
+
+Se envia los datos de un usuario autorizado. Se devuelve el token de acceso.
+
++ Request (application/json)
+
+        {
+            "usuario": "AbrhilUser",
+            "contrasena": "AbrhilPass"
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "mensaje": "Autenticación correcta",
+                "token": "TOKEN_AUTORIZADO"
+            }
+            
++ Response 403 (application/json)
+
+    + Body
+
+            {
+                "mensaje": "Usuario o contraseña incorrectos"
+            }
+
+
+## Colección de contactos [/api/contactos]
+
+### Lista de todos los contactos [GET]
+
+Se obtiene la lista de todos los contactos registrados.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "uuid": "0a2f62fd-1a57-4b6a-bee7-2d094a0656ef",
+                "first_name": "Nombre 1",
+                "last_name": "Apellido 1",
+                "phone": "1111111111",
+                "email": "nombre1@correo.com",
+                "photo": "URL string 1",
+                "createdAt": "2021-04-28T21:23:53.688Z",
+                "updatedAt": "2021-04-28T21:23:53.688Z"
+            },
+            {
+                "uuid": "0a2f62fd-1a57-4b6a-bee7-2d094a0656ff",
+                "first_name": "Nombre 2",
+                "last_name": "Apellido 2",
+                "phone": "2222222222",
+                "email": "nombre2@correo.com",
+                "photo": "URL string 2",
+                "createdAt": "2021-04-28T21:23:53.688Z",
+                "updatedAt": "2021-04-28T21:23:53.688Z"
+            }
+        ]
+
+### Crear un nuevo contacto [POST]
+
+Se envia los datos de un nuevo contacto. Se valida el registro de un nuevo correo.
+
++ Request (application/json)
+
+        {
+            "first_name": "Nuevo Contacto",
+            "last_name": "Nuevo Apellido",
+            "phone": "3333333333",
+            "email": "nuevo_contacto@correo.com",
+            "photo": "URL string 3"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/contactos/{uuid}
+
+    + Body
+
+            {
+                "uuid": "0a2f62fd-1a57-4b6a-bee7-2d094a0656ee",
+                "first_name": "Nuevo Contacto",
+                "last_name": "Nuevo Apellido",
+                "phone": "3333333333",
+                "email": "nuevo_contacto@correo.com",
+                "photo": "URL string 3",
+                "updatedAt": "2021-04-28T21:23:53.688Z",
+                "createdAt": "2021-04-28T21:23:53.688Z"
+            }
+            
++ Response 500 (application/json)
+
+    + Body
+
+            {
+                "mensaje": "Usuario ya existe"
+            }
+
+## Contacto [/api/contactos/{uuid}]
+
+### Recuperar un contacto [GET]
+
+Se recupera un contacto registrado por medio de su UUID
+
++ Response 200 (application/json)
+
+        {
+            "uuid": "0a2f62fd-1a57-4b6a-bee7-2d094a0656ee",
+            "first_name": "Nuevo Contacto",
+            "last_name": "Nuevo Apellido",
+            "phone": "3333333333",
+            "email": "nuevo_contacto@correo.com",
+            "photo": "URL string 3",
+            "updatedAt": "2021-04-28T21:23:53.688Z",
+            "createdAt": "2021-04-28T21:23:53.688Z"
+        }
+        
++ Response 500 (application/json)
+
+    + Body
+
+            {
+                "mensaje": "Usuario no existe"
+            }
+        
+### Actualizar un contacto [PUT]
+
+Actualizar los datos de un contacto por medio de su UUID
+
++ Request (application/json)
+
+        {
+            "first_name": "Contacto Actualizado",
+            "last_name": "Apellido Actualizado",
+            "phone": "3333333333",
+            "email": "nuevo_contacto@correo.com",
+            "photo": "URL string 3 actualizado"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/contactos/{uuid}
+
+    + Body
+
+            {
+                "uuid": "0a2f62fd-1a57-4b6a-bee7-2d094a0656ee",
+                "first_name": "Nuevo Contacto",
+                "last_name": "Nuevo Apellido",
+                "phone": "3333333333",
+                "email": "nuevo_contacto@correo.com",
+                "photo": "URL string 3",
+                "updatedAt": "2021-04-28T21:23:53.688Z",
+                "createdAt": "2021-04-28T21:23:53.688Z"
+            }
+ 
++ Request (application/json)
+
+        {
+            "first_name": "Contacto Actualizado",
+            "last_name": "Apellido Actualizado",
+            "phone": "3333333333",
+            "email": "nuevo_contacto@correo.com",
+            "photo": "URL string 3 actualizado"
+        }
+           
++ Response 500 (application/json)
+
+    + Body
+
+            {
+                "mensaje": "Usuario ya existe"
+            }
+        
+### Borrar un contacto [DELETE]
+
+**WARNING** Elimina definitivamente un contacto por medio de su UUID
+
++ Response 200 (application/json)
+
+        {
+            "msg": "Usuario eliminado"
+        }
+        
++ Response 500 (application/json)
+
+    + Body
+
+            {
+                "mensaje": "Usuario no existe"
+            }
